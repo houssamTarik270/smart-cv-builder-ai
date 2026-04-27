@@ -10,6 +10,9 @@ function CVBuilder() {
     phone: "",
     address: "",
     summary: "",
+    education: "",
+    skills: "",
+    projects: "",
   });
 
   return (
