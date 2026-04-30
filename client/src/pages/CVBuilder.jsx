@@ -1,6 +1,6 @@
 import { useState } from "react";
 import CVForm from "../components/CVForm";
-import CVPreview from "../components/CVPreview";
+import CVPreview from "../services/CVPreview";
 import "../App.css";
 
 function CVBuilder() {
@@ -11,6 +11,7 @@ function CVBuilder() {
     address: "",
     summary: "",
     education: "",
+    experience: "",
     skills: "",
     projects: "",
   });
@@ -19,7 +20,7 @@ function CVBuilder() {
     <div className="builder-page">
       <header className="header">
         <h1>Smart CV Builder AI</h1>
-        <p>Create your professional CV with live preview</p>
+        <p>Create your professional CV with a step-by-step builder and live preview</p>
       </header>
 
       <main className="builder-container">

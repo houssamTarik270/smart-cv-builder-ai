@@ -1,4 +1,8 @@
+import { useState } from "react";
+
 function CVForm({ cvData, setCvData }) {
+  const [step, setStep] = useState(1);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -8,77 +12,145 @@ function CVForm({ cvData, setCvData }) {
     });
   };
 
+  const nextStep = () => {
+    if (step < 5) {
+      setStep(step + 1);
+    }
+  };
+
+  const previousStep = () => {
+    if (step > 1) {
+      setStep(step - 1);
+    }
+  };
+
   return (
     <div className="form-card">
-      <h2>CV Information</h2>
+      <h2>CV Builder</h2>
 
-      <label>Full Name</label>
-      <input
-        type="text"
-        name="fullName"
-        value={cvData.fullName}
-        onChange={handleChange}
-        placeholder="Enter your full name"
-      />
+      <div className="steps">
+        <span className={step === 1 ? "active-step" : ""}>1</span>
+        <span className={step === 2 ? "active-step" : ""}>2</span>
+        <span className={step === 3 ? "active-step" : ""}>3</span>
+        <span className={step === 4 ? "active-step" : ""}>4</span>
+        <span className={step === 5 ? "active-step" : ""}>5</span>
+      </div>
 
-      <label>Email</label>
-      <input
-        type="email"
-        name="email"
-        value={cvData.email}
-        onChange={handleChange}
-        placeholder="Enter your email"
-      />
+      {step === 1 && (
+        <div>
+          <h3>Personal Information</h3>
 
-      <label>Phone</label>
-      <input
-        type="text"
-        name="phone"
-        value={cvData.phone}
-        onChange={handleChange}
-        placeholder="Enter your phone number"
-      />
+          <label>Full Name</label>
+          <input
+            type="text"
+            name="fullName"
+            value={cvData.fullName}
+            onChange={handleChange}
+            placeholder="Enter your full name"
+          />
 
-      <label>Address</label>
-      <input
-        type="text"
-        name="address"
-        value={cvData.address}
-        onChange={handleChange}
-        placeholder="Enter your address"
-      />
+          <label>Email</label>
+          <input
+            type="email"
+            name="email"
+            value={cvData.email}
+            onChange={handleChange}
+            placeholder="Enter your email"
+          />
 
-      <label>Profile Summary</label>
-      <textarea
-        name="summary"
-        value={cvData.summary}
-        onChange={handleChange}
-        placeholder="Write a short professional summary"
-      />
+          <label>Phone</label>
+          <input
+            type="text"
+            name="phone"
+            value={cvData.phone}
+            onChange={handleChange}
+            placeholder="Enter your phone number"
+          />
 
-      <label>Education</label>
-      <textarea
-        name="education"
-        value={cvData.education}
-        onChange={handleChange}
-        placeholder="Example: DUT in Computer Science - EST Fquih Ben Salah"
-      />
+          <label>Address</label>
+          <input
+            type="text"
+            name="address"
+            value={cvData.address}
+            onChange={handleChange}
+            placeholder="Enter your address"
+          />
 
-      <label>Skills</label>
-      <textarea
-        name="skills"
-        value={cvData.skills}
-        onChange={handleChange}
-        placeholder="Example: React, Laravel, Java, MySQL, Linux"
-      />
+          <label>Profile Summary</label>
+          <textarea
+            name="summary"
+            value={cvData.summary}
+            onChange={handleChange}
+            placeholder="Write a short professional summary"
+          />
+        </div>
+      )}
 
-      <label>Projects</label>
-      <textarea
-        name="projects"
-        value={cvData.projects}
-        onChange={handleChange}
-        placeholder="Describe your academic or personal projects"
-      />
+      {step === 2 && (
+        <div>
+          <h3>Education</h3>
+
+          <label>Education</label>
+          <textarea
+            name="education"
+            value={cvData.education}
+            onChange={handleChange}
+            placeholder="Example: DUT in Computer Science - EST Fquih Ben Salah - 2024/2026"
+          />
+        </div>
+      )}
+
+      {step === 3 && (
+        <div>
+          <h3>Work Experience</h3>
+
+          <label>Experience</label>
+          <textarea
+            name="experience"
+            value={cvData.experience}
+            onChange={handleChange}
+            placeholder="Describe your internships, work experience, or academic practice"
+          />
+        </div>
+      )}
+
+      {step === 4 && (
+        <div>
+          <h3>Skills</h3>
+
+          <label>Skills</label>
+          <textarea
+            name="skills"
+            value={cvData.skills}
+            onChange={handleChange}
+            placeholder="Example: React, Node.js, Java, MySQL, Linux"
+          />
+        </div>
+      )}
+
+      {step === 5 && (
+        <div>
+          <h3>Projects</h3>
+
+          <label>Projects</label>
+          <textarea
+            name="projects"
+            value={cvData.projects}
+            onChange={handleChange}
+            placeholder="Describe your academic or personal projects"
+          />
+        </div>
+      )}
+
+      <div className="form-buttons">
+        <button onClick={previousStep} disabled={step === 1}>
+          Previous
+        </button>
+
+        <button onClick={nextStep} disabled={step === 5}>
+          Next
+        </button>
+      </div>
     </div>
   );
 }
