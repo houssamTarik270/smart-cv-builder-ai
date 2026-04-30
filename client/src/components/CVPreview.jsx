@@ -1,6 +1,6 @@
-function CVPreview({ cvData, selectedTemplate }) {
+function CVPreview({ cvData, selectedTemplate, cvRef }) {
   return (
-    <div className={`preview-card ${selectedTemplate}`}>
+    <div ref={cvRef} className={`preview-card ${selectedTemplate}`}>
       <h2>{cvData.fullName || "Your Name"}</h2>
 
       <div className="contact-line">

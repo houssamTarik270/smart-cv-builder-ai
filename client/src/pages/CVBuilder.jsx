@@ -1,9 +1,12 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
+import html2pdf from "html2pdf.js";
 import CVForm from "../components/CVForm";
 import CVPreview from "../components/CVPreview";
 import "../App.css";
 
 function CVBuilder() {
+  const cvRef = useRef();
+
   const [selectedTemplate, setSelectedTemplate] = useState("classic");
 
   const [cvData, setCvData] = useState({
@@ -17,6 +20,27 @@ function CVBuilder() {
     skills: "",
     projects: "",
   });
+
+  const downloadPDF = () => {
+    const element = cvRef.current;
+
+    const options = {
+      margin: 0.5,
+      filename: `${cvData.fullName || "my-cv"}.pdf`,
+      image: { type: "jpeg", quality: 0.98 },
+      html2canvas: {
+        scale: 2,
+        useCORS: true,
+      },
+      jsPDF: {
+        unit: "in",
+        format: "a4",
+        orientation: "portrait",
+      },
+    };
+
+    html2pdf().set(options).from(element).save();
+  };
 
   return (
     <div className="builder-page">
@@ -33,7 +57,17 @@ function CVBuilder() {
           setSelectedTemplate={setSelectedTemplate}
         />
 
-        <CVPreview cvData={cvData} selectedTemplate={selectedTemplate} />
+        <div>
+          <CVPreview
+            cvData={cvData}
+            selectedTemplate={selectedTemplate}
+            cvRef={cvRef}
+          />
+
+          <button className="download-btn" onClick={downloadPDF}>
+            Download PDF
+          </button>
+        </div>
       </main>
     </div>
   );
