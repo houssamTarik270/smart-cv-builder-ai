@@ -1,9 +1,11 @@
 import { useState } from "react";
 import CVForm from "../components/CVForm";
-import CVPreview from "../services/CVPreview";
+import CVPreview from "../components/CVPreview";
 import "../App.css";
 
 function CVBuilder() {
+  const [selectedTemplate, setSelectedTemplate] = useState("classic");
+
   const [cvData, setCvData] = useState({
     fullName: "",
     email: "",
@@ -24,8 +26,14 @@ function CVBuilder() {
       </header>
 
       <main className="builder-container">
-        <CVForm cvData={cvData} setCvData={setCvData} />
-        <CVPreview cvData={cvData} />
+        <CVForm
+          cvData={cvData}
+          setCvData={setCvData}
+          selectedTemplate={selectedTemplate}
+          setSelectedTemplate={setSelectedTemplate}
+        />
+
+        <CVPreview cvData={cvData} selectedTemplate={selectedTemplate} />
       </main>
     </div>
   );

@@ -1,6 +1,6 @@
-function CVPreview({ cvData }) {
+function CVPreview({ cvData, selectedTemplate }) {
   return (
-    <div className="preview-card">
+    <div className={`preview-card ${selectedTemplate}`}>
       <h2>{cvData.fullName || "Your Name"}</h2>
 
       <div className="contact-line">
@@ -22,6 +22,11 @@ function CVPreview({ cvData }) {
       <section>
         <h3>Education</h3>
         <p>{cvData.education || "Your education will appear here."}</p>
+      </section>
+
+      <section>
+        <h3>Work Experience</h3>
+        <p>{cvData.experience || "Your experience will appear here."}</p>
       </section>
 
       <section>

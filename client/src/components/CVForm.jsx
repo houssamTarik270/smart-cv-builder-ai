@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function CVForm({ cvData, setCvData }) {
+function CVForm({ cvData, setCvData, selectedTemplate, setSelectedTemplate }) {
   const [step, setStep] = useState(1);
 
   const handleChange = (e) => {
@@ -13,7 +13,7 @@ function CVForm({ cvData, setCvData }) {
   };
 
   const nextStep = () => {
-    if (step < 5) {
+    if (step < 6) {
       setStep(step + 1);
     }
   };
@@ -34,6 +34,7 @@ function CVForm({ cvData, setCvData }) {
         <span className={step === 3 ? "active-step" : ""}>3</span>
         <span className={step === 4 ? "active-step" : ""}>4</span>
         <span className={step === 5 ? "active-step" : ""}>5</span>
+        <span className={step === 6 ? "active-step" : ""}>6</span>
       </div>
 
       {step === 1 && (
@@ -142,12 +143,31 @@ function CVForm({ cvData, setCvData }) {
         </div>
       )}
 
+      {step === 6 && (
+        <div>
+          <h3>Choose CV Template</h3>
+
+          <label>Template</label>
+          <select
+            value={selectedTemplate}
+            onChange={(e) => setSelectedTemplate(e.target.value)}
+          >
+            <option value="classic">Classic Template</option>
+            <option value="modern">Modern Template</option>
+          </select>
+
+          <p className="helper-text">
+            Choose a design. Your CV information will stay the same.
+          </p>
+        </div>
+      )}
+
       <div className="form-buttons">
         <button onClick={previousStep} disabled={step === 1}>
           Previous
         </button>
 
-        <button onClick={nextStep} disabled={step === 5}>
+        <button onClick={nextStep} disabled={step === 6}>
           Next
         </button>
       </div>

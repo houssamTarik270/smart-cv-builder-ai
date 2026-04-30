@@ -130,6 +130,39 @@ textarea {
   background: #b8c0d4;
   cursor: not-allowed;
 }
+select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccd1d9;
+  border-radius: 8px;
+  font-size: 14px;
+  background: white;
+}
+
+.helper-text {
+  margin-top: 10px;
+  color: #666;
+  font-size: 14px;
+}
+
+.preview-card.classic {
+  border-top: 6px solid #1f3c88;
+}
+
+.preview-card.modern {
+  background: linear-gradient(135deg, #ffffff 0%, #eef3ff 100%);
+  border-left: 8px solid #1f3c88;
+}
+
+.preview-card.modern h2 {
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.preview-card.modern h3 {
+  border-bottom: 1px solid #ccd1d9;
+  padding-bottom: 5px;
+}
 
 @media (max-width: 768px) {
   .builder-container {
