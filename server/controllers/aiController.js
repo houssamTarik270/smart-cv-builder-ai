@@ -1,24 +1,27 @@
+
+
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 
-// Hna kan-3ayto l-Gemini b l-Key dyalk
+// Had l-stira khassha t-koun t-t-9ra men .env
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
+const model = genAI.getGenerativeModel({ 
+  model: "gemini-1.5-flash-002" 
+}, { apiVersion: "v1" });
+
 exports.optimizeText = async (req, res) => {
-  const { text, field } = req.body; // field y9der ykoun 'experience' wlla 'aboutMe'
+  const { text, field } = req.body;
 
   try {
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-
-    // L-Prompt li ghadi n-sifto l-IA (m-9add bach y-rj3 text pro)
-    const prompt = `As a professional career coach, rewrite the following ${field} for a CV to be more professional, impactful, and ATS-friendly. Keep it concise and use action verbs. Text: ${text}`;
-
+    const prompt = `You are a professional career coach. Rewrite the following text for a CV to be professional, impactful, and ATS-friendly. Keep it concise.\n\nField: ${field}. Text: ${text}`;
     const result = await model.generateContent(prompt);
-    const response = await result.response;
-    const optimizedText = response.text();
-
+    const optimizedText = result.response.text().trim();
+    
+    console.log("✅ Gemini Success!");
     res.json({ optimizedText });
+
   } catch (error) {
-    console.error("Gemini Error:", error);
-    res.status(500).json({ error: "Failed to optimize text with AI" });
+    console.error("❌ Gemini Error:", error.message);
+    res.status(500).json({ error: "Gemini failed to respond." });
   }
 };
