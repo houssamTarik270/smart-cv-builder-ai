@@ -3,6 +3,7 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 const passport = require("passport"); // ✅ Import darori li kān na9ssk
 const connectDB = require("./config/db");
+const authRoutes = require('./routes/authRoutes');
 
 // 1. Configuration dyal l-bi'a
 dotenv.config();

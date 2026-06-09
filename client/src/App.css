@@ -244,7 +244,7 @@ html, body, #root {
   position: relative;
   z-index: 2;
   display: grid;
-  grid-template-columns: 400px 1fr;
+  grid-template-columns: 450px 1fr;
   flex: 1;
   overflow: hidden;
 }
@@ -674,12 +674,18 @@ html, body, #root {
 .cv-card:hover .layer-3 { transform: translate(28px, 40px) scale(0.95); }
 
 /* ===========================
+   CV PAPER (Updated)
+=========================== */
+/* ===========================
    CV PAPER
 =========================== */
 .cv-paper {
   background: var(--paper-bg);
   border-radius: 4px;
   overflow: hidden;
+  min-height: 297mm;
+  height: auto;
+  
   box-shadow:
     inset 0 1px 0 rgba(255,255,255,0.8),
     0 0 0 1px rgba(0,0,0,0.06);
@@ -951,3 +957,164 @@ html, body, #root {
   position: relative;
   z-index: 10; 
 }
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   CUSTOM FIELDS — append these rules at the end of your App.css
+   ───────────────────────────────────────────────────────────────────────────── */
+
+/* Container wrapping all custom rows + the add button */
+.custom-fields-block {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+/* One label + value + delete row */
+.custom-field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 8px;
+  align-items: center;
+  animation: fadeUp 0.2s ease both;
+}
+
+/* Narrower label input */
+.custom-field-label  { font-size: 12.5px; }
+.custom-field-value  { font-size: 12.5px; }
+
+/* Delete button */
+.custom-field-delete {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border: 1px solid rgba(239, 68, 68, 0.25);
+  border-radius: 8px;
+  background: rgba(239, 68, 68, 0.08);
+  color: #f87171;
+  cursor: pointer;
+  transition: background 0.18s, border-color 0.18s, transform 0.15s;
+  flex-shrink: 0;
+}
+.custom-field-delete:hover {
+  background: rgba(239, 68, 68, 0.18);
+  border-color: rgba(239, 68, 68, 0.5);
+  transform: scale(1.08);
+}
+
+/* "+ Add Custom Field" button */
+.add-custom-field-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: fit-content;
+  padding: 7px 14px;
+  border-radius: 8px;
+  border: 1px dashed rgba(110, 231, 247, 0.35);
+  background: rgba(110, 231, 247, 0.05);
+  color: #6ee7f7;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.18s, border-color 0.18s, transform 0.15s;
+  margin-top: 4px;
+}
+.add-custom-field-btn span { font-size: 16px; line-height: 1; }
+.add-custom-field-btn:hover {
+  background: rgba(110, 231, 247, 0.1);
+  border-color: rgba(110, 231, 247, 0.6);
+  transform: translateY(-1px);
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Styling l-custom fields f l-headers dyal les templates */
+.cv-contacts span, 
+.contacts span {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* L-style dyal l-fields f Classic template (b-7it hiya inline styles) */
+/* L-logic dyal flex wrap kayna deja f styles.contacts */
+
+/* L-style dyal l-fields f Modern template */
+.cv-contacts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-top: 8px;
+}
+
+/* Style dyal Custom Fields l-Modern Template */
+/* Style dyal Custom Fields l-Modern Template */
+.custom-field-item {
+  margin-top: 8px;
+  font-size: 14px;
+  color: #374151; /* Ghadi t-k-o-n dark gray m-a-c-h-i k-h-l m-k-h-t-f */
+  line-height: 1.5;
+}
+
+.custom-field-item strong {
+  color: #111827; /* Label y-b-a-n b-l-o-n m-g-h-l-q c-h-w-i-y-a 3la l-value */
+}
+
+/* --- Custom Fields Styling --- */
+
+/* 1. L-style dyal l-container d l-fields f l-editor (App.jsx) */
+.custom-field-row {
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 12px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 2. L-style d l-display dyal l-fields f l-templates (Classic/Modern) */
+.custom-field-item {
+  margin-top: 6px;
+  font-size: 13px;
+  color: #444; /* Y-k-o-n bayn f l-background d l-CV */
+}
+
+/* 3. T-s-h-i-n d l-bouton d l-delete (Optionnel, bach y-j-i f l-wasst) */
+.delete-btn {
+  background: #ef4444;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.delete-btn:hover {
+  background: #dc2626;
+}
+
+.cv-scene {
+  flex: 1;
+  display: flex;
+  align-items: flex-start; /* Hna bddelna center b flex-start */
+  justify-content: center; /* Hdi katkhalli l-CV f l-wst ufuqiyan */
+  padding: 32px;
+  overflow: auto;
+  position: relative;
+  z-index: 2;
+}
+
+
+
+
+
+

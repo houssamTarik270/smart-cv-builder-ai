@@ -1,19 +1,22 @@
-
-
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 
-// Had l-stira khassha t-koun t-t-9ra men .env
+// Initialize API client directly
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
-const model = genAI.getGenerativeModel({ 
-  model: "gemini-1.5-flash-002" 
-}, { apiVersion: "v1" });
-
 exports.optimizeText = async (req, res) => {
-  const { text, field } = req.body;
+  // Ghadin n-akhdo ghir l-text n9i mn req.body
+  const { text } = req.body;
 
   try {
-    const prompt = `You are a professional career coach. Rewrite the following text for a CV to be professional, impactful, and ATS-friendly. Keep it concise.\n\nField: ${field}. Text: ${text}`;
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+
+    // Prompt rj3nah direct o m-ssimplifi 100% bla sda3 dyal fields
+    const prompt = `You are a professional career coach and expert resume writer. 
+    Correct all spelling mistakes, improve the grammar, and rewrite the following text to be professional, impactful, and ready for an ATS-friendly CV. 
+    Keep it concise and professional.
+    
+    Text to rewrite: ${text}`;
+    
     const result = await model.generateContent(prompt);
     const optimizedText = result.response.text().trim();
     

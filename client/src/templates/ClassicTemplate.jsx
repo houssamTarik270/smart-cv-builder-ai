@@ -123,22 +123,45 @@ export default function ClassicTemplate({ data, updatedField }) {
     <div style={styles.wrapper}>
       {/* Header */}
       <div style={styles.header}>
-        <h1
-          style={{
-            ...styles.name,
-            ...(updatedField === "name" ? styles.fieldUpdated : {}),
-          }}
-        >
-          {cv.name}
-        </h1>
-        <p style={styles.title}>{cv.title}</p>
-        <div style={styles.contacts}>
-          <span>{cv.email}</span>
-          <span>{cv.phone}</span>
-          <span>{cv.location}</span>
-          <span>{cv.linkedin}</span>
+        {/* 👉 1. ZIDNA TSWIRA HNA F L-JENB */}
+        <div style={{ width: "80px", height: "80px", borderRadius: "50%", flexShrink: 0, overflow: "hidden", background: "#f5f5f5", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: "bold", fontSize: "24px", color: "#333" }}>
+          {cv.profileImage ? (
+            <img 
+              src={cv.profileImage} 
+              alt="Profile Avatar" 
+              style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
+            />
+          ) : (
+            "AC"
+          )}
+        </div>
+
+        {/* 👉 2. L-INFO LI KANT 3NDK DEJA (Smya o contacts) */}
+        <div>
+          <h1
+            style={{
+              ...styles.name,
+              ...(updatedField === "name" ? styles.fieldUpdated : {}),
+            }}
+          >
+            {cv.name}
+          </h1>
+          <p style={styles.title}>{cv.title}</p>
+          <div style={styles.contacts}>
+            <span>{cv.email}</span>
+            <span>{cv.phone}</span>
+            <span>{cv.location}</span>
+            <span>{cv.linkedin}</span>
+            
+            {cv.customFields?.map((field, index) => (
+              <span key={index}>
+                <strong>{field.label}:</strong> {field.value}
+              </span>
+            ))}
+          </div>
         </div>
       </div>
+
 
       {/* Profile */}
       <div style={styles.sectionTitle}>Profile</div>
@@ -150,6 +173,11 @@ export default function ClassicTemplate({ data, updatedField }) {
       >
         {cv.summary}
       </p>
+      {cv.summaryCustomFields?.map((field, index) => (
+        <div key={index} style={{ marginTop: "5px", fontSize: "13px", color: "#333" }}>
+          <strong>{field.label}:</strong> {field.value}
+        </div>
+      ))}
 
       {/* Experience */}
       <div style={styles.sectionTitle}>Professional Experience</div>
@@ -174,6 +202,12 @@ export default function ClassicTemplate({ data, updatedField }) {
               <li key={i} style={styles.bullet}>{b}</li>
             ))}
           </ul>
+          {/* Hna khassk t-z-i-d l-code li 3titek l-foq */}
+          {exp.customFields?.map((field, index) => (
+            <div key={index} style={{ fontSize: "12px", color: "#444", marginTop: "4px" }}>
+              <strong>{field.label}:</strong> {field.value}
+            </div>
+          ))}
         </div>
       ))}
 

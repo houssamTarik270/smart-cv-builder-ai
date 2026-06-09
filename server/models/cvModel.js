@@ -1,14 +1,20 @@
 const mongoose = require('mongoose');
 
 const cvSchema = new mongoose.Schema({
-    user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
-    fullName: { type: String, required: true },
-    email: { type: String, required: true },
+    user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }, 
+    
+    // 7iydna required: true bach MongoDB may-blokich lina sauvegarde
+    fullName: { type: String }, 
+    email: { type: String }, 
     phone: { type: String },
-    aboutMe: { type: String }, // Jdid
-    experience: { type: String }, // Structured Text
-    education: { type: String }, 
-    skills: { type: String }, // Comma separated
+    aboutMe: { type: String }, 
+    
+    experience: { type: mongoose.Schema.Types.Mixed }, 
+    education: { type: mongoose.Schema.Types.Mixed }, 
+    skills: { type: mongoose.Schema.Types.Mixed }, 
+    
+    // 🌟 HADA HOWA L-CHAMP L-MOHEM LI KHASSO YKOUN:
+    cvData: { type: Object } 
 }, { 
     timestamps: true 
 });

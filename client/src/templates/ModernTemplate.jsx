@@ -10,7 +10,16 @@ export default function ModernTemplate({ data, updatedField }) {
       {/* Header Strip */}
       <div className="cv-header-strip">
         <div className="cv-avatar">
-          {cv.name.split(" ").map((n) => n[0]).join("")}
+          {data.profileImage ? (
+            <img
+              src={data.profileImage}
+              alt="Profile Avatar"
+              style={{ width: '100%', height: '100%', borderRadius: '50%', objectFit: 'cover' }}
+            />
+          ) : (
+            "AC"
+          )}
+                  
         </div>
         <div className="cv-identity">
           <h1 className={`cv-name ${updatedField === "name" ? "field-updated" : ""}`}>
@@ -22,6 +31,16 @@ export default function ModernTemplate({ data, updatedField }) {
             <span>✆ {cv.phone}</span>
             <span>⌖ {cv.location}</span>
             <span>⬡ {cv.linkedin}</span>
+            {/* F l-Header, b3d l-span dyal LinkedIn */}
+
+
+            {/* Zid had l-block hna */}
+            {cv.customFields?.map((field, index) => (
+              <span key={index}>
+               ⬡ {field.label}: {field.value}
+              </span>
+            
+            ))}
           </div>
         </div>
       </div>
@@ -34,6 +53,11 @@ export default function ModernTemplate({ data, updatedField }) {
           <p className={`cv-summary-text ${updatedField === "summary" ? "field-updated" : ""}`}>
             {cv.summary}
           </p>
+          {cv.summaryCustomFields?.map((field, index) => (
+            <div key={index} className="custom-field-item">
+              <strong>{field.label}:</strong> {field.value}
+            </div>
+          ))}
         </div>
 
         {/* Experience */}
@@ -56,6 +80,11 @@ export default function ModernTemplate({ data, updatedField }) {
                   <li key={i}>{b}</li>
                 ))}
               </ul>
+              {exp.customFields?.map((field, index) => (
+               <div key={index} className="custom-field-item">
+                <strong>{field.label}:</strong> {field.value}
+               </div>
+              ))} 
             </div>
           ))}
         </div>
@@ -69,7 +98,6 @@ export default function ModernTemplate({ data, updatedField }) {
             ))}
           </div>
         </div>
-
         {/* Education */}
         <div className="cv-section">
           <div className="cv-section-label">Education</div>

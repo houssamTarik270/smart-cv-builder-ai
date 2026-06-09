@@ -17,6 +17,7 @@ function CVPreview({ cvData, selectedTemplate, cvRef }) {
           {cvData.summary ||
             "Your professional summary will appear here as you type."}
         </p>
+        
       </section>
 
       <section>
