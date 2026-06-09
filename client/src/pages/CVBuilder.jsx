@@ -4,7 +4,7 @@ import CVForm from "../components/CVForm";
 import CVPreview from "../components/CVPreview";
 import "../App.css";
 
-// ── TrashIcon for removing custom fields ─────────────────────────────────────
+
 const TrashIcon = () => (
   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
     strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -19,7 +19,7 @@ function CVBuilder() {
   const cvRef = useRef();
   const [selectedTemplate, setSelectedTemplate] = useState("classic");
 
-  // ── Existing CV state (UNCHANGED) ─────────────────────────────────────────
+  
   const [cvData, setCvData] = useState({
     fullName: "",
     email: "",
@@ -32,7 +32,7 @@ function CVBuilder() {
     projects: "",
   });
 
-  // ── NEW: custom fields state, one array per section ───────────────────────
+  
   const [customFields, setCustomFields] = useState({
     basics:     [],
     summary:    [],
@@ -42,7 +42,7 @@ function CVBuilder() {
     projects:   [],
   });
 
-  // ── Existing downloadPDF (UNCHANGED) ──────────────────────────────────────
+  
   const downloadPDF = () => {
     const element = cvRef.current;
     const options = {
@@ -55,7 +55,7 @@ function CVBuilder() {
     html2pdf().set(options).from(element).save();
   };
 
-  // ── NEW: Custom fields helpers ────────────────────────────────────────────
+  
   const addCustomField = (section) => {
     setCustomFields(prev => ({
       ...prev,

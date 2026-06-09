@@ -21,7 +21,7 @@ const userSchema = new mongoose.Schema({
   createdAt: { type: Date, default: Date.now }
 });
 
-// ✅ Hash password before saving (Mṣa77a n9īya bla next)
+//  Hash password before saving (Mṣa77a n9īya bla next)
 userSchema.pre('save', async function () {
   if (!this.isModified('password')) return;
   

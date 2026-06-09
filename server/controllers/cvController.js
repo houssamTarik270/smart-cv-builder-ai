@@ -1,4 +1,4 @@
-const CV = require('../models/cvModel'); // T-akd blli s-mīt l-fichier hna match m3a s-mīt model dyalk
+const CV = require('../models/cvModel'); 
 
 const VALID_SECTIONS = ['basics', 'summary', 'experience', 'skills', 'education'];
 
@@ -49,7 +49,7 @@ exports.updateCustomFields = async (req, res) => {
     if (!Array.isArray(customFields))
       return res.status(400).json({ message: 'customFields must be an array.' });
 
-    // Sanitise: keep only label/value strings
+    
     const sanitised = customFields.map(f => ({
       label: String(f.label || '').slice(0, 100),
       value: String(f.value || '').slice(0, 500),
@@ -69,13 +69,12 @@ exports.updateCustomFields = async (req, res) => {
   }
 };
 
-// Fonction bach n-jibo l-historique dyal l-CVs
+
 exports.getHistory = async (req, res) => {
   try {
     const userId = req.params.userId;
     
-    // Kan-cherchiw f MongoDB 3la ga3 les CVs li 3ndhom had userId
-    // .sort({ createdAt: -1 }) kat-jib jdad huma l-wla
+    
     const history = await CVModel.find({ userId: userId }).sort({ createdAt: -1 });
     
     res.status(200).json(history);

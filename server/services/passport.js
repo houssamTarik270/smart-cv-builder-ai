@@ -9,15 +9,15 @@ passport.use(new GoogleStrategy({
   },
   async (accessToken, refreshToken, profile, done) => {
     try {
-      // Check wach l-user 3ndu account b had l-email
+      
       let user = await User.findOne({ email: profile.emails[0].value });
       
       if (!user) {
-        // Ila ma-3ndouch, n-créé-w wa7ed jdid [cite: 112]
+        
         user = await User.create({
           name: profile.displayName,
           email: profile.emails[0].value,
-          password: 'google-auth-no-password' // Password dummy hit kheddam b Google
+          password: 'google-auth-no-password' 
         });
       }
       return done(null, user);

@@ -3,13 +3,13 @@ const nodemailer = require('nodemailer');
 const transporter = nodemailer.createTransport({
   host:   'smtp.gmail.com',
   port:   587,
-  secure: false, // false for port 587
+  secure: false, 
   auth: {
-    user: 'houssamtarik270@gmail.com', // 👈 L-email dial l-maieur direct
-    pass: 'mjjugnpyubfufntp'          // 👈 L-App Password m-laṣeq kámel direct
+    user: 'houssamtarik270@gmail.com', 
+    pass: 'mjjugnpyubfufntp'          
   },
   tls: {
-    rejectUnauthorized: false         // 👈 Bach n-7eydo l-mouchkil d SSL l-9dīm
+    rejectUnauthorized: false         
   }
 });
 

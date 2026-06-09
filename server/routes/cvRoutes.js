@@ -4,14 +4,14 @@ const cvController = require('../controllers/cvController');
 const auth       = require('../middleware/auth');
 const CVModel    = require('../models/cvModel'); 
 
-// ── 1. Routes l-3adiyin w Jdad (Khasshom ykouno l-foq) ──
+// ── 1. Routes 
 router.post('/', auth, cvController.createCV);   
 router.get('/',  auth, cvController.getAllCVs);  
 
-// 🌟 ROUTE SAUVEGARDE JDIDA
+
 router.post('/save', auth, async (req, res) => {
   try {
-    const userId = req.user.id; // Kay-ji direct mn l-Token bghdl 'auth'
+    const userId = req.user.id; 
     const { cvData } = req.body;
 
     const newCV = new CVModel({
@@ -26,10 +26,10 @@ router.post('/save', auth, async (req, res) => {
   }
 });
 
-// 🌟 ROUTE HISTORIQUE JDIDA
+
 router.get('/history', auth, async (req, res) => {
   try {
-    const userId = req.user.id; // Kay-ji direct mn l-Token bghdl 'auth'
+    const userId = req.user.id; 
     
     const history = await CVModel.find({ user: userId }).sort({ createdAt: -1 });
     res.status(200).json(history);
@@ -37,13 +37,13 @@ router.get('/history', auth, async (req, res) => {
     res.status(500).json({ message: "Erreur serveur", error: error.message });
   }
 });
-// 🌟 ROUTE DYAL MAS7 (DELETE) - Zid hadi t7t route dyal history direct
+
 router.delete('/delete/:id', auth, async (req, res) => {
   try {
     const userId = req.user.id;
     const cvId = req.params.id;
 
-    // Kan-mshou l-CV ghir ila kān dyal l-user li m-connecté bdabt
+    
     const deletedCV = await CVModel.findOneAndDelete({ _id: cvId, user: userId });
 
     if (!deletedCV) {
@@ -56,7 +56,7 @@ router.delete('/delete/:id', auth, async (req, res) => {
   }
 });
 
-// ── 2. Routes li fihom :id (DIMA KHASSHOM YKOUNO HOMA L-LKHRIN) ──
+
 router.put('/:id/custom-fields', auth, cvController.updateCustomFields);
 router.get('/:id', auth, cvController.getCVById);
 

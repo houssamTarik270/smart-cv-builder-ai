@@ -32,9 +32,9 @@ export default function Historique() {
     fetchHistory();
   }, []);
 
-  // 🌟 Fonction bach tms7 l-CV (DELETE)
+  
   const handleDelete = async (cvId) => {
-    // Message d'alerte bach l-user mayms7ch bl ghalat
+    
     const confirmation = window.confirm("Wesh mte2ked bghiti tems7 had l-CV?");
     if (!confirmation) return;
 
@@ -48,7 +48,7 @@ export default function Historique() {
       });
 
       if (response.ok) {
-        // Ila tmseh mn Database, 7iydo hta mn l-affichage (state)
+        
         setHistory(prevHistory => prevHistory.filter(item => item._id !== cvId));
       } else {
         alert("Mochkil f msi7 dyal CV. 3awd jereb.");
@@ -58,10 +58,9 @@ export default function Historique() {
     }
   };
 
-  // 🌟 Fonction bach t7el l-CV f l'éditeur
+  
   const handleOpen = (item) => {
-    // ⚠️ BEDDEL "/editeur" B LIEN S7I7 DYAL L-PAGE DYAL CV DYALEK
-    // (Matlan: "/home", "/create", wla "/builder" 3la 7sab chno msemih)
+    
     navigate('/builder', { state: { cvDataLoaded: item.cvData } });
   };
 
@@ -98,7 +97,7 @@ export default function Historique() {
                   Sauvegardé le: {new Date(item.createdAt).toLocaleDateString()}
                 </div>
                 
-                {/* Zedt container flex bach n7et les deux boutons 7da b3dyathom */}
+                {/*  */}
                 <div style={{ display: "flex", gap: "10px" }}>
                   <button 
                     style={{ flex: 1, padding: "10px", background: "linear-gradient(90deg, #38bdf8, #818cf8)", color: "white", border: "none", borderRadius: "8px", cursor: "pointer", fontWeight: "600", transition: "0.3s" }}

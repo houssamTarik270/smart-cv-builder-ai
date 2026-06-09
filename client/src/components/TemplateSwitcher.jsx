@@ -1,17 +1,8 @@
-// src/components/TemplateSwitcher.jsx
-//
-// Props
-// ─────
-//   templates   : Array<{ id: string, label: string, icon?: ReactNode, description?: string }>
-//   selected    : string        – id du template actif
-//   onSelect    : (id: string) => void
-//
-// Le composant gère son propre état d'ouverture/fermeture du menu.
-// Il se ferme automatiquement sur clic extérieur (via useEffect).
+
 
 import { useState, useRef, useEffect } from "react";
 
-// ── Icônes SVG intégrées (pas de dépendance externe) ─────────────────────────
+
 
 const IconChevron = ({ open }) => (
   <svg
@@ -28,7 +19,7 @@ const IconCheck = () => (
   </svg>
 );
 
-// Icônes par défaut pour "modern" et "classic"
+
 const IconModern = () => (
   <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
     <rect x="1" y="1" width="14" height="14" rx="3" stroke="url(#gm)" strokeWidth="1.2" />
@@ -54,13 +45,13 @@ const IconClassic = () => (
   </svg>
 );
 
-// Map d'icônes par défaut (utilisée si le template n'en fournit pas)
+
 const DEFAULT_ICONS = {
   modern:  <IconModern />,
   classic: <IconClassic />,
 };
 
-// ── Styles constants ──────────────────────────────────────────────────────────
+
 
 const S = {
   wrapper: {
@@ -110,7 +101,7 @@ const S = {
     zIndex: 200,
     backdropFilter: "blur(20px)",
     boxShadow: "0 12px 40px rgba(0,0,0,0.5), 0 0 0 1px rgba(167,139,250,0.08)",
-    // Animation via className (voir ci-dessous)
+    
     animation: "ts-fade-in 0.15s ease",
   },
 
@@ -182,13 +173,13 @@ const S = {
   },
 };
 
-// ── Couleur indicatrice par template ─────────────────────────────────────────
+
 const TEMPLATE_COLORS = {
   modern:  "linear-gradient(135deg, #a78bfa, #38bdf8)",
   classic: "#64748b",
 };
 
-// ── Animation keyframe injectée une seule fois ────────────────────────────────
+
 let _animInjected = false;
 function injectAnimation() {
   if (_animInjected || typeof document === "undefined") return;
@@ -208,7 +199,7 @@ function injectAnimation() {
   _animInjected = true;
 }
 
-// ── Composant ─────────────────────────────────────────────────────────────────
+
 
 export default function TemplateSwitcher({ templates, selected, onSelect }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -216,7 +207,7 @@ export default function TemplateSwitcher({ templates, selected, onSelect }) {
 
   injectAnimation();
 
-  // Fermeture sur clic extérieur
+
   useEffect(() => {
     if (!isOpen) return;
     const handleOutside = (e) => {
@@ -228,7 +219,7 @@ export default function TemplateSwitcher({ templates, selected, onSelect }) {
     return () => document.removeEventListener("mousedown", handleOutside);
   }, [isOpen]);
 
-  // Fermeture sur Escape
+
   useEffect(() => {
     if (!isOpen) return;
     const handleKey = (e) => { if (e.key === "Escape") setIsOpen(false); };

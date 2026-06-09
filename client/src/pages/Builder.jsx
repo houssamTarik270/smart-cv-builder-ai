@@ -6,18 +6,18 @@ import bgVideo from "../assets/bg-video.mp4";
 import BlueTemplate from "../templates/BlueTemplate"; // Zid hadi
 import WavyTemplate from "../templates/WavyTemplate";
 
-// ── Template imports ──────────────────────────────────────────────────────────
+
 import ModernTemplate  from "../templates/ModernTemplate";
 import ClassicTemplate from "../templates/ClassicTemplate";
 
-// ── Components ────────────────────────────────────────────────────────────────
+
 import TemplateSwitcher from "../components/TemplateSwitcher";
 import OliveTemplate from "../templates/OliveTemplate";
 import OrganicTemplate from "../templates/OrganicTemplate";
 import { useNavigate } from "react-router-dom";
 
 
-// ─────────────────────────────────────────────────────────────────────────────
+
 
 const SparkleIcon = () => (
   <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
@@ -44,7 +44,7 @@ const LoadingDots = () => (
   </span>
 );
 
-// ── Initial CV data ───────────────────────────────────────────────────────────
+
 const initialCV = {
   name:     "Alexandra Chen",
   title:    "Senior Product Designer & UX Strategist",
@@ -88,9 +88,7 @@ const initialCV = {
   },
 };
 
-// ── Template registry ─────────────────────────────────────────────────────────
-// Pour ajouter un nouveau template : insérez une entrée ici uniquement.
-// Les champs `description` et `icon` sont transmis au TemplateSwitcher.
+
 const TEMPLATES = [
   {
     id:          "modern",
@@ -132,7 +130,7 @@ const TEMPLATES = [
 // ─────────────────────────────────────────────────────────────────────────────
 
 export default function App() {
-  const navigate = useNavigate(); // Zid hadi hna
+  const navigate = useNavigate(); 
   const [cv, setCv]                         = useState(initialCV);
   const [loadingField, setLoadingField]     = useState(null);
   const [updatedField, setUpdatedField]     = useState(null);
@@ -141,8 +139,8 @@ export default function App() {
   const [selectedTemplate, setSelectedTemplate] = useState("modern");
 
   const previewRef = useRef(null);
-  const cardRef    = useRef(null); // 3D tilt — inchangé
-  const printRef   = useRef(null); // cible d'impression : .cv-paper uniquement
+  const cardRef    = useRef(null); 
+  const printRef   = useRef(null); 
 
   const ActiveTemplate =
     TEMPLATES.find((t) => t.id === selectedTemplate)?.component ?? ModernTemplate;
@@ -159,7 +157,7 @@ export default function App() {
     setSelectedTemplate(TEMPLATES[prevIndex].id);
   };
 
-  // ── Image Upload ──────────────────────────────────────────────────────────
+  
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -167,9 +165,9 @@ export default function App() {
       setCv(prev => ({ ...prev, profileImage: imageUrl }));
     }
   };
-  // ─────────────────────────────────────────────────────────────────────────────
+  
 
-  // ── Print / Export PDF ────────────────────────────────────────────────────
+  
   const PRINT_PAGE_STYLE = `
     @page {
       size: A4 portrait;
@@ -215,20 +213,19 @@ export default function App() {
     pageStyle:     PRINT_PAGE_STYLE,
   });
 
-  // ── Download PDF via html2pdf.js ──────────────────────────────────────────
 
   const saveCvToDatabase = async (cvData) => {
     try {
-      const token = localStorage.getItem('token'); // 👈 Jbedna l-token dyal l-user li connecté
+      const token = localStorage.getItem('token'); 
 
       const response = await fetch("http://localhost:5000/api/cv/save", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}` // 👈 Sifetna l-token f l-Headers
+          "Authorization": `Bearer ${token}` 
         },
         body: JSON.stringify({
-          // 7iydna userId mn hna 7it l-backend ghadi y3rfo mn l-token
+          
           cvData: cvData,
           createdAt: new Date().toISOString()
         }),
@@ -246,14 +243,14 @@ export default function App() {
   };
 
   const handleDownloadPDF = async () => {
-    // 1. Kan-3yto l-fonction d sauvegarde 9bel téléchargement
+   
     try {
       await saveCvToDatabase(cv); 
     } catch (error) {
       console.error("Mochkil f sauvegarde dyal CV 9bel téléchargement:", error);
     }
 
-    // 2. L-code li kay-telechargi l-fichier PDF
+    
     const element = cardRef.current;
     if (!element) return;
 
@@ -277,23 +274,13 @@ export default function App() {
 
     html2pdf().set(options).from(element).save();
   };
-  // ─────────────────────────────────────────────────────────────────────────────
-
-  // ── Wizard steps ─────────────────────────────────────────────────────────
-  // ─────────────────────────────────────────────────────────────────────────────
-  // ─────────────────────────────────────────────────────────────────────────────
-  // ─────────────────────────────────────────────────────────────────────────────
-
   
-  // ─────────────────────────────────────────────────────────────────────────────
-
-  // ── Wizard steps ─────────────────────────────────────────────────────────
   const [currentStep, setCurrentStep] = useState(1);
   const nextStep = () => setCurrentStep((prev) => Math.min(prev + 1, 5));
   const prevStep = () => setCurrentStep((prev) => Math.max(prev - 1, 1));
-  // ─────────────────────────────────────────────────────────────────────────────
+  
 
-  // ── 3D Tilt ───────────────────────────────────────────────────────────────
+  
   const handleMouseMove = (e) => {
     const card = cardRef.current;
     if (!card) return;
@@ -309,21 +296,21 @@ export default function App() {
   };
 
   const handleMouseLeave = () => setTilt({ x: 0, y: 0 });
-  // ─────────────────────────────────────────────────────────────────────────────
+  
 
   // ── AI helpers ────────────────────────────────────────────────────────────
   const callAI = async (fieldKey, prompt, currentValue) => {
     setLoadingField(fieldKey);
     setUpdatedField(null);
     try {
-      const token = localStorage.getItem('token'); // Jbedna s-sarout dyal user
+      const token = localStorage.getItem('token'); 
 
-      // Kan-3yto l-Backend dyalk f blast l-API direct
+      
       const response = await fetch("http://localhost:5000/api/ai/optimize", {
         method:  "POST",
         headers: { 
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}` // Sifetna l-token bach l-auth y-khelina n-douzou
+          "Authorization": `Bearer ${token}` 
         },
         body: JSON.stringify({
           field: fieldKey,
@@ -337,13 +324,13 @@ export default function App() {
 
       const data = await response.json();
       
-      // L-Backend dyalk kay-red 'optimizedText' kima m-ktoub f aiController.js
+     
       const result = data.optimizedText || currentValue;
       return result;
 
     } catch (err) {
       console.error("Erreur f t-7sin b l-IA:", err);
-      return currentValue; // Ila wqe3 mochkil, kay-kheli l-text l-qdim
+      return currentValue; 
     } finally {
       setLoadingField(null);
     }
@@ -827,7 +814,7 @@ export default function App() {
           <div className="preview-header">
             <span className="preview-label">Live Preview</span>
             <div className="preview-actions">
-              {/* 🌟 Bتون Histoique li zdna db */}
+              {/*  */}
               <button 
                 className="preview-btn" 
                 onClick={() => navigate('/historique')}
@@ -848,10 +835,10 @@ export default function App() {
               <button className="preview-btn" onClick={handleDownloadPDF}>⤓ Download PDF</button>
             </div>
           </div>
-{/* L-block dyal l-card o les flèches */}
+{/**/}
           <div style={{ position: "relative", width: "100%", height: "calc(100% - 60px)", display: "flex", alignItems: "center", justifyContent: "center" }}>
             
-            {/* Flèche isriya (b9at fixed f l-wṣṭ dyal l-ecran) */}
+            {/*  */}
             <button 
               onClick={prevTemplate} 
               style={{ position: "absolute", left: "20px", zIndex: 10, background: "rgba(255,255,255,0.2)", border: "1px solid rgba(255,255,255,0.4)", color: "white", borderRadius: "50%", width: "50px", height: "50px", fontSize: "24px", cursor: "pointer", backdropFilter: "blur(5px)" }}
@@ -859,7 +846,7 @@ export default function App() {
               ❮
             </button>
 
-            {/* 🌟 HADA HOWA L-BLOCK L-JDID: container khass b l-scroll kayبدا m l-foq */}
+            {/* */}
             <div style={{ width: "100%", height: "100%", overflowY: "auto", display: "flex", justifyContent: "center", alignItems: "flex-start", padding: "40px 0" }}>
               
               {/* L-CODE DYAL 3D CARD DYALK KIMA HOWA */}
@@ -887,7 +874,7 @@ export default function App() {
 
             </div>
 
-            {/* Flèche imniya (b9at fixed f l-wṣṭ dyal l-ecran) */}
+            {/**/}
             <button 
               onClick={nextTemplate} 
               style={{ position: "absolute", right: "20px", zIndex: 10, background: "rgba(255,255,255,0.2)", border: "1px solid rgba(255,255,255,0.4)", color: "white", borderRadius: "50%", width: "50px", height: "50px", fontSize: "24px", cursor: "pointer", backdropFilter: "blur(5px)" }}

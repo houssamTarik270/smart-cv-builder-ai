@@ -77,7 +77,7 @@ export default function Login() {
 
   const [view, setView]       = useState(VIEWS.LOGIN);
   const [loading, setLoading] = useState(false);
-  const [notice, setNotice]   = useState({ text: '', type: '' }); // type: '' | 'error' | 'success'
+  const [notice, setNotice]   = useState({ text: '', type: '' }); 
 
   // shared fields
   const [email, setEmail]         = useState('');
